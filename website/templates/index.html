@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{{url_for('static',filename='dist/css/output.css')}}">
+
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+  <body class="max-w-4xl mx-auto">
+    <nav class="">
+      <div class="mt-2" id="navbar">
+        <div class="flex justify-end px-4">
+          {% if user.is_authenticated %}
+          <a class="font-thin flex items-center space-x-2 hover:text-blue-400" id="logout" href="/logout">
+            <p>Logout</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+          </a>
+          {% else %}
+          <div></div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="">{% block content %} {% endblock %}</div>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+{% block javascript %}
+    <script type="text/javascript">
+      function deleteNote(noteId) {
+  fetch("/delete-note", {
+    method: "POST",
+    body: JSON.stringify({ noteId: noteId }),
+  }).then((_res) => {
+    window.location.href = "/";
+  });
+  }
+</script>
+{% endblock %}
+  </body>
+</html>

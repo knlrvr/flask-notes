@@ -1,0 +1,29 @@
+{% extends "index.html" %} {% block title %}Home{% endblock %} {% block content
+%}
+<h1 class="font-thin mb-8 text-center">Notes</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 px-8">
+  <div class="col-span-1">
+    <ul class="mb-4" id="notes">
+      {% for note in user.notes %}
+      <li class="list-group-item flex justify-between items-center mb-2">
+        {{ note.data }}
+        <button type="button" class="text-center" onClick="deleteNote({{ note.id }})">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="col-span-1 mb-4">
+    <form method="POST" class="flex flex-col justify-center text-center">
+      <p class="text-left font-thin text-sm">Create New Note</p>
+      <textarea name="note" id="note" rows="10" class="form-control border border-gray-400 px-2 focus:outline-none"></textarea>
+      <br />
+      <div>
+        <button type="submit" class="border border-black px-2 py-2 rounded-full text-white bg-black
+        hover:bg-blue-400 hover:border-blue-400 hover:shadow-lg w-1/4">Add Note</button>
+      </div>
+    </form>
+  </div>  
+</div>
+{% endblock %}
